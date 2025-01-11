@@ -24,6 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 //app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", crudcontroller.mainRoute);
+app.post("/empleado/", crudcontroller.createEmployet);
 
 app.listen(port, () => {
     console.log(`El servidor se está ejecutando en el http://localhost:${port}`);
