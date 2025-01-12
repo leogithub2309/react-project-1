@@ -20,14 +20,18 @@ const createEmployet = async (req, res) => {
             });
         }
 
-        let sql = `INSERT INTO empleado VALUES('${nombre}','${edad}', '${salario}','${cargo}', '${horaLlegada}','${horaSalida}')`;
+        let sql = `INSERT INTO empleado VALUES(null, '${nombre}','${edad}', '${salario}','${cargo}', '${horaLlegada}','${horaSalida}')`;
 
         const [result] = await connectionDB.query(sql);
 
-        console.log(result);
-
-        
-
+        if(result){
+            return res.status(200).send({
+                title: 'Success',
+                desc: 'Se agregó un nuevo empleado correctamente',
+                status: 200,
+                
+            });
+        }
     } catch (error) {
         return res.status(400).send({
             title: "error",
@@ -35,8 +39,6 @@ const createEmployet = async (req, res) => {
             error
         });
     }
-
-
 
 }
 
