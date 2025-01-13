@@ -1,0 +1,10 @@
+.relative.z-10{
+    opacity: 0;
+    visibility: hidden;
+    transition: ease-in-out 200ms;
+}
+
+.relative.z-10.open{
+    opacity: 1;
+    visibility: visible;
+}

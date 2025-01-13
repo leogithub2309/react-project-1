@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from '../hook/useForm';
+import { useNavigate } from 'react-router-dom';
 
 const initialForm = {
     nombre: '',
@@ -46,9 +47,15 @@ const validationsForm = (form) => {
 function htmlFormEmpleado() {
     
     const {form, errors, loading, response ,handleChange, handleBlur, handleSubmit} = useForm(initialForm, validationsForm);
+
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        navigate('/lista');
+    }
     
     return (  
-        <form className='max-w-lg mx-auto mt-5' autoComplete='off' onSubmit={handleSubmit}>
+        <form className='max-w-lg mx-auto mt-5 mb-5' autoComplete='off' onSubmit={handleSubmit}>
             <div className="sm:col-span-4">
                 <label htmlFor="nombre" className="block text-sm/6 font-medium text-gray-900">Nombre</label>
                 <div className="mt-2">
@@ -78,7 +85,7 @@ function htmlFormEmpleado() {
                 <label htmlFor="cargo" className="block  text-sm/6 font-medium text-gray-900">Cargo</label>
                 <div className="mt-2">
                     <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                        <input type="text" name="cargo" id="cargo" className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6" placeholder="Cargo"  onChange={handleChange} value={form.cargo} onBlur={handleBlur} />
+                        <input type="text" name="cargo" id="cargo" className="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6" placeholder="Cargo" onChange={handleChange} value={form.cargo} onBlur={handleBlur} />
                     </div>
                     {errors.cargo && <span className='text-red-600 text-xs'>{errors.cargo}</span>}
                 </div>
@@ -100,13 +107,13 @@ function htmlFormEmpleado() {
                 </div>
             </div>
             <div className="mt-6 flex items-center justify-start gap-x-6">
-                <button type="button" className="rounded-md text-sm/6 font-semibold text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 px-3 py-2 ">Regresar</button>
+                <button type="button" className="rounded-md text-sm/6 font-semibold text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 px-3 py-2 " onClick={handleNavigate}>Ver Lista</button>
                 <button type="submit" disabled={Object.keys(errors).length > 0} className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Agregar</button>
             </div>
-            {response && <>
+            {response && <div className='text-center mt-5'>
                 <p className='text-sm text-green-500 font-semibold'>{response.title}</p>
                 <p className='text-sm text-green-500 font-semibold'>{response.desc}</p>
-            </>}
+            </div>}
             {loading && <span>Cargando...</span>}
         </form>
         

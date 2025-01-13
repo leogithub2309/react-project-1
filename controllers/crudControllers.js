@@ -42,9 +42,56 @@ const createEmployet = async (req, res) => {
 
 }
 
+const getEmploys = async (req, res) => {
 
+    try {
+        
+        let sql = `SELECT * FROM empleado`;
 
+        const [result] = await connectionDB.query(sql);
 
+        if(result){
+            return res.status(200).send({
+                title: "Success",
+                result
+            });
+        }
+
+    } catch (error) {
+        return res.status(400).send({
+            title: "error",
+            status: 400,
+            error
+        })
+    }
+}
+
+const deleteEmploy = async (req, res) => {
+
+    try {
+        
+        let { id } = req.params;
+
+        let sql = `DELETE FROM empleado WHERE empleado.empleadoid = "${id}"`;
+
+        const [result] = await connectionDB.query(sql);
+
+        if(result){
+            return res.status(200).send({
+                title: 'Success',
+                desc: 'El empleado ha sido eliminado correctamente',
+                status: 200,
+            });
+        }
+
+    } catch (error) {
+        return res.status(400).send({
+            title: "error",
+            status: 400,
+            error
+        })
+    }
+}
 
 
 
@@ -54,5 +101,7 @@ const createEmployet = async (req, res) => {
 
 export default {
     mainRoute,
-    createEmployet
+    createEmployet,
+    getEmploys,
+    deleteEmploy
 }
