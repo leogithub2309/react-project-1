@@ -27,6 +27,7 @@ app.get("/", crudcontroller.mainRoute);
 app.post("/empleado/", crudcontroller.createEmployet);
 app.get("/empleados/", crudcontroller.getEmploys);
 app.delete("/delEmpleado/:id", crudcontroller.deleteEmploy);
+app.put("/editarEmpleado/:id", crudcontroller.editEmploy);
 
 app.listen(port, () => {
     console.log(`El servidor se está ejecutando en el http://localhost:${port}`);

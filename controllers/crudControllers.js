@@ -93,7 +93,36 @@ const deleteEmploy = async (req, res) => {
     }
 }
 
+const editEmploy = async (req, res) => {
 
+   
+    try {
+
+        let { id } = req.params;
+
+        let { nombre, edad, salario, cargo, horaLlegada, horaSalida } = req.body;
+
+        let sql = `UPDATE empleado SET empleado.nombre = '${nombre}', empleado.edad = '${edad}', empleado.salario = '${salario}', empleado.cargo = '${cargo}', empleado.horaLlegada = '${horaLlegada}', empleado.horaSalida = '${horaSalida}' WHERE empleado.empleadoid = ${id}`;
+
+        const [result] = await connectionDB.query(sql);
+
+        if(result){
+            return res.status(200).send({
+                title: 'Success',
+                desc: 'Se actualizó el empleado correctamente',
+                status: 200,
+            });
+        }
+
+        
+    } catch (error) {
+        return res.status(400).send({
+            title: "error",
+            status: 400,
+            error
+        });
+    }
+}
 
 
 
@@ -103,5 +132,6 @@ export default {
     mainRoute,
     createEmployet,
     getEmploys,
-    deleteEmploy
+    deleteEmploy,
+    editEmploy
 }

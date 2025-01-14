@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useModal } from '../hook/useModal';
 import Modal from './Modal';
 import { helpHttp } from '../help/useHelpFetch';
+import { useNavigate } from 'react-router-dom';
 
 function ListaEmpleados({ data }) {
 
@@ -10,6 +11,8 @@ function ListaEmpleados({ data }) {
     const [isOpenDelete, openModalDelete, closeModalDelete] = useModal(false);
 
     const [isDelete, setIsDelete] = useState(0);
+
+    const navigate = useNavigate();
 
     const handleGetUser = (e) => {
 
@@ -36,6 +39,11 @@ function ListaEmpleados({ data }) {
         }
     }
 
+    const handleNavigate = (e) => {
+
+        navigate(`/editarEmpleado/${e.target.dataset.id}`);
+    }
+
     return (
         <>
             <table className='table-auto mx-auto w-4/5 border-collapse border-spacing-0'>
@@ -60,7 +68,7 @@ function ListaEmpleados({ data }) {
                         <td className='border-b p-3 border-slate-300'>{el.horaSalida} pm</td>
                         <td className='border-b p-3 border-slate-300 flex gap-2'>
                             <button type='button' className='rounded-md bg-red-600 p-2 text-sm text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500' onClick={handleGetUser} data-id={el.empleadoid}>del</button>
-                            <button type='button' className='rounded-md bg-indigo-600 p-2 text-sm text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>edit</button>
+                            <button type='button' className='rounded-md bg-indigo-600 p-2 text-sm text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' onClick={handleNavigate} data-id={el.empleadoid}>edit</button>
                         </td>
                     </tr>) : <tr><td colSpan={7}>No hay Empleados disponibles</td></tr>}
                 </tbody>
@@ -78,7 +86,7 @@ function ListaEmpleados({ data }) {
                             <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                                 <h3 className="text-base font-semibold text-gray-900" id="modal-title">¿Está seguro de eliminar el empleado?</h3>
                                 <div className="mt-2">
-                                    <p className="text-sm text-gray-500">Si decide continuar esta acción no tiene vuelta atras y el empleado será eliminado de la Base de Datos.</p>
+                                    <p className="text-sm text-gray-500">Si decide continuar, esta acción no tiene vuelta atras y el empleado será eliminado de la Base de Datos.</p>
                                 </div>
                             </div>
                         </div>
